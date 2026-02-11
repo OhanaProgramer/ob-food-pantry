@@ -1,0 +1,23 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{{ .Title | default .Site.Title }}{{ if .Title }} | {{ .Site.Title }}{{ end }}</title>
+
+  {{ with .Params.description }}
+    <meta name="description" content="{{ . }}">
+  {{ end }}
+
+  <link rel="stylesheet" href="{{ "css/base.css" | relURL }}">
+
+  {{ with .Site.Params.build }}
+    <meta name="site-version" content="{{ .version }}">
+    {{ with .channel }}
+      <meta name="site-channel" content="{{ . }}">
+    {{ end }}
+    {{ with $.GitInfo }}
+      <meta name="build-commit" content="{{ .Hash }}">
+      <meta name="build-date" content="{{ .AuthorDate.Format "2006-01-02" }}">
+    {{ end }}
+  {{ end }}
+</head>

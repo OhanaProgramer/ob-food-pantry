@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="{{ .Site.LanguageCode | default "en" }}">
+{{ partial "head.html" . }}
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="/">{{ .Site.Title }}</a>
+      <nav aria-label="Primary">
+        <ul class="nav-list">
+          <li><a href="#get-food">Get Food</a></li>
+          <li><a href="#hours-location">Hours</a></li>
+          <li><a href="#volunteer">Volunteer</a></li>
+          <li><a href="#donate">Donate</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid{{ if not .Params.hero.image }} hero-grid--single{{ end }}">
+        <div class="hero-text">
+          {{ with .Params.hero }}
+            <h1 id="hero-title">{{ .heading }}</h1>
+            <p class="hero-lead">{{ .subheading }}</p>
+          {{ end }}
+        </div>
+        {{ with .Params.hero.image }}
+          <div class="hero-image">
+            <img src="{{ . | relURL }}" alt="{{ $.Params.hero.image_alt | default "Volunteers organizing food at the pantry" }}" loading="lazy">
+          </div>
+        {{ end }}
+      </div>
+    </section>
+
+    <section class="section section--soft section--cluster-a" id="get-food" aria-labelledby="get-food-title">
+      <div class="container section-shell">
+
+        <div class="section-header">
+          <h2 id="get-food-title">Get Food</h2>
+        </div>
+
+        <div class="get-food-layout">
+          <div class="get-food-content">
+            {{ with .Params.get_food }}
+
+              {{ with .eligibility }}
+                <h3>Who can receive food</h3>
+                <ul class="check-list">
+                  {{ range . }}<li>{{ . }}</li>{{ end }}
+                </ul>
+              {{ end }}
+
+              {{ with .what_to_bring }}
+                <h3>What to bring</h3>
+                <ul class="check-list">
+                  {{ range . }}<li>{{ . }}</li>{{ end }}
+                </ul>
+              {{ end }}
+
+              <p>
+                <strong>Appointment required:</strong>
+                {{ if .appointment_required }}Yes{{ else }}No{{ end }}
+              </p>
+
+              {{ with .notes }}
+                <ul class="check-list">
+                  {{ range . }}<li>{{ . }}</li>{{ end }}
+                </ul>
+              {{ end }}
+            {{ end }}
+          </div>
+
+          <div class="get-food-image">
+            <!-- Placeholder: set .Params.get_food.image path in front matter -->
+            {{ with .Params.get_food.image }}
+              <img src="{{ . | relURL }}" alt="Community food pantry interior" loading="lazy">
+            {{ else }}
+              <p>Image placeholder</p>
+            {{ end }}
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section section--mist section--cluster-a" id="hours-location" aria-labelledby="hours-location-title">
+      <div class="container section-shell">
+
+        <div class="section-header">
+          <h2 id="hours-location-title">Hours & Location</h2>
+        </div>
+
+        <div class="section-grid">
+          {{ with .Params.hours }}
+            <article class="card">
+              <h3>Hours</h3>
+              <ul>
+                {{ range . }}
+                  <li><strong>{{ .day }}:</strong> {{ .time }}</li>
+                {{ end }}
+              </ul>
+            </article>
+          {{ end }}
+
+          {{ with .Params.location }}
+            <article class="card">
+              <h3>Location</h3>
+              <p><strong>{{ .name }}</strong></p>
+              <p>
+                {{ .address }}<br>
+                {{ .city }}, {{ .state }} {{ .zip }}
+              </p>
+            </article>
+          {{ end }}
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services" aria-labelledby="services-title">
+      <div class="container section-shell">
+
+        {{ with .Params.services }}
+
+          <div class="section-header">
+            <h2 id="services-title">{{ .heading }}</h2>
+          </div>
+
+          <div class="section-grid">
+            {{ range $idx, $item := .items }}
+              <article class="card {{ if eq (mod $idx 2) 0 }}card--odd{{ else }}card--even{{ end }}">
+                {{ with $item.image }}
+                  <div class="service-media">
+                    <img src="{{ . | relURL }}" alt="{{ $item.image_alt | default (printf "%s image" $item.title) }}" loading="lazy">
+                  </div>
+                {{ end }}
+                <h3>{{ $item.title }}</h3>
+                <p>{{ $item.description }}</p>
+              </article>
+            {{ end }}
+          </div>
+
+        {{ end }}
+
+      </div>
+    </section>
+
+    <section class="section section--soft" id="story" aria-labelledby="story-title">
+      <div class="container section-shell">
+        {{ with .Params.story }}
+          <div class="section-header">
+            <h2 id="story-title">{{ .heading }}</h2>
+          </div>
+
+          <p>{{ .body }}</p>
+
+          {{ with .quote }}
+            <blockquote class="story-quote">
+              <p>{{ . }}</p>
+              {{ with $.Params.story.quote_attrib }}
+                <footer>{{ . }}</footer>
+              {{ end }}
+            </blockquote>
+          {{ end }}
+        {{ end }}
+      </div>
+    </section>
+
+    <section class="section section--mist" id="impact" aria-labelledby="impact-title">
+      <div class="container section-shell">
+        {{ with .Params.impact }}
+          <div class="section-header">
+            <h2 id="impact-title">{{ .heading }}</h2>
+          </div>
+
+          {{ with .stats }}
+            <div class="section-grid">
+              {{ range . }}
+                <article class="card">
+                  <p class="impact-value">{{ .value }}</p>
+                  <p class="impact-label">{{ .label }}</p>
+                </article>
+              {{ end }}
+            </div>
+          {{ end }}
+        {{ end }}
+      </div>
+    </section>
+
+    <section class="section section--soft" id="contact" aria-labelledby="contact-title">
+      <div class="container section-shell">
+        {{ with .Params.contact }}
+
+          <div class="section-header">
+            <h2 id="contact-title">{{ .heading }}</h2>
+          </div>
+
+          <p><strong>Phone:</strong> {{ .phone }}</p>
+          <p><strong>Email:</strong> {{ .email }}</p>
+
+          {{ with .notes }}
+            <ul class="check-list">
+              {{ range . }}<li>{{ . }}</li>{{ end }}
+            </ul>
+          {{ end }}
+
+        {{ end }}
+      </div>
+    </section>
+
+    <section class="section section--cluster-b" aria-labelledby="get-involved-title">
+      <div class="container section-shell">
+        <div class="section-header">
+          <h2 id="get-involved-title">Get Involved</h2>
+        </div>
+
+        <div class="section-grid">
+          <section class="section" id="volunteer" aria-labelledby="volunteer-title">
+            <div class="container section-shell">
+
+              {{ with .Params.volunteer }}
+                {{ with .image }}
+                  <div class="service-media">
+                    <img src="{{ . | relURL }}" alt="{{ $.Params.volunteer.image_alt | default "Volunteer team sorting donations" }}" loading="lazy">
+                  </div>
+                {{ end }}
+
+                <div class="section-header">
+                  <h2 id="volunteer-title">{{ .heading }}</h2>
+                </div>
+
+                <p>{{ .description }}</p>
+
+                {{ with .opportunities }}
+                  <ul class="check-list">
+                    {{ range . }}<li>{{ . }}</li>{{ end }}
+                  </ul>
+                {{ end }}
+
+              {{ end }}
+
+            </div>
+          </section>
+
+          <section class="section section--mist" id="donate" aria-labelledby="donate-title">
+            <div class="container section-shell">
+
+              {{ with .Params.donate }}
+                {{ with .image }}
+                  <div class="service-media">
+                    <img src="{{ . | relURL }}" alt="{{ $.Params.donate.image_alt | default "Food boxes ready for distribution" }}" loading="lazy">
+                  </div>
+                {{ end }}
+
+                <div class="section-header">
+                  <h2 id="donate-title">{{ .heading }}</h2>
+                </div>
+
+                <p>{{ .description }}</p>
+                <p><em>{{ .disclaimer }}</em></p>
+
+              {{ end }}
+
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  {{ partial "footer.html" . }}
+</body>
+</html>

@@ -1,0 +1,9 @@
+baseURL = "/"
+languageCode = "en-us"
+title = "Community Food Pantry"
+
+enableGitInfo = true
+
+[params.build]
+version = "0.1.0"
+channel = "food-pantry"
