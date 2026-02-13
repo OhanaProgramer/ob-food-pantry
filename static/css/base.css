@@ -93,6 +93,57 @@ a {
   left: 0;
 }
 
+/* === Demo Banner === */
+.demo-banner {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: #1b1b18;
+  color: #ffffff;
+  border-bottom: 1px solid #3b3b35;
+}
+
+.demo-banner__inner {
+  min-height: var(--demo-banner-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.3rem 0;
+}
+
+.demo-banner__text {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.2;
+}
+
+.demo-banner__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #ffffff;
+  background: #ffffff;
+  color: #1b1b18;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.88rem;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.demo-banner__link:hover {
+  background: #f0f0e8;
+}
+
+.demo-banner__link:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
 /* === Site Header & Navigation === */
 .site-header {
   position: sticky;
